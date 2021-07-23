@@ -19,9 +19,23 @@ ORDER BY count(*) ASC;
 ////////////////
 
 
-3. ¿Qué consulta harías para obtener todas las ciudades de México con una población de más de 500,000? Tu consulta debe organizar el resultado por población en orden descendente. (1)
+3. ¿Qué consulta harías para obtener todas las ciudades de México con una población de más de 500,000? 
+Tu consulta debe organizar el resultado por población en orden descendente.
+////////////////
+select countries.name, cities.name, cities.population from cities join countries ON country_id = countries.id 
+WHERE countries.name = 'mexico' and cities.population > 500000
+ORDER BY cities.population DESC;
+////////////////
 
-4. ¿Qué consulta ejecutarías para obtener todos los idiomas en cada país con un porcentaje superior al 89%? Tu consulta debe organizar el resultado por porcentaje en orden descendente. (1)
+
+
+4. ¿Qué consulta ejecutarías para obtener todos los idiomas en cada país con un porcentaje superior al 89%? 
+Tu consulta debe organizar el resultado por porcentaje en orden descendente. (1)
+////////////////
+
+////////////////
+
+
 
 5. ¿Qué consulta haría para obtener todos los países con un área de superficie inferior a 501 y una población superior a 100,000? (2)
 
