@@ -15,7 +15,7 @@ Tu consulta debe organizar el resultado por el número de ciudades en orden desc
 ////////////////
 select countries.name , count(*) from cities join countries ON country_id = countries.id
 GROUP BY countries.name
-ORDER BY count(*) ASC; 
+ORDER BY count(*) DESC;
 ////////////////
 
 
@@ -41,7 +41,7 @@ ORDER BY percentage DESC;
 
 5. ¿Qué consulta haría para obtener todos los países con un área de superficie inferior a 501 y una población superior a 100,000? 
 ////////////////
-SELECT * from countries
+SELECT name, surface_area, population from countries
 WHERE surface_area < 501 and population > 100000
 ORDER BY population DESC;
 ////////////////
@@ -51,7 +51,7 @@ ORDER BY population DESC;
 6. ¿Qué consulta harías para obtener países con solo Monarquía Constitucional con un capital superior a 200 y 
 una esperanza de vida superior a 75 años? (1)
 ////////////////
-select * from countries
+select government_form, capital, life_expectancy from countries
 WHERE government_form = 'Constitutional Monarchy' and capital > 200 and life_expectancy > 75
 ORDER BY name ASC;
 ////////////////
@@ -74,7 +74,7 @@ WHERE countries.name = 'argentina' and district = 'Buenos Aires' and cities.popu
 La consulta debe mostrar el nombre de la región y el número de países. 
 Además, la consulta debe organizar el resultado por el número de países en orden descendente.
 ////////////////
-select countries.continent as Continente , count(*) as Paises from countries
-GROUP BY countries.continent
-ORDER BY count(*) DESC; 
+select region, count(*) as Paises from countries
+GROUP BY region
+ORDER BY count(*) DESC;
 ////////////////
