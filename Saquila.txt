@@ -41,11 +41,19 @@ where store_id = 1 and address.city_id in (1,42,312,459)
 
 
 
-
 5. ¿Qué consulta realizarías para obtener todas las películas con una "calificación = G" y 
 "característica especial = detrás de escena", unidas por actor_id = 15? 
 Su consulta debe devolver el título de la película, la descripción, el año de lanzamiento, la calificación y la función especial. 
 Sugerencia: puede usar la función LIKE para obtener la parte 'detrás de escena'.
+///////////////////
+select film.title, film.description, film.release_year, rating, special_features from actor
+join film_actor ON  film_actor.actor_id = actor.actor_id
+join film ON film_actor.film_id = film.film_id 
+where rating = 'g' and actor.actor_id = 15 and special_features like '%behind the scenes%'
+///////////////////
+
+
+
 
 6. ¿Qué consulta harías para obtener todos los actores que se unieron en el film_id = 369? 
 Su consulta debe devolver film_id, title, actor_id y actor_name.
