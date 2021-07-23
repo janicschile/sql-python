@@ -34,7 +34,9 @@ where actor.actor_id = 5
 4. ¿Qué consulta ejecutaría para obtener todos los clientes en store_id = 1 y dentro de estas ciudades (1, 42, 312 y 459)? 
 Su consulta debe devolver el nombre, apellido, correo electrónico y dirección del cliente.
 ///////////////////
-
+select * from customer
+join address ON customer.address_id = address.address_id 
+where store_id = 1 and address.city_id in (1,42,312,459)
 ///////////////////
 
 
