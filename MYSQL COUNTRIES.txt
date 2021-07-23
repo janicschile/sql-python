@@ -48,7 +48,16 @@ ORDER BY population DESC;
 
 
 
-6. ¿Qué consulta harías para obtener países con solo Monarquía Constitucional con un capital superior a 200 y una esperanza de vida superior a 75 años? (1)
+6. ¿Qué consulta harías para obtener países con solo Monarquía Constitucional con un capital superior a 200 y 
+una esperanza de vida superior a 75 años? (1)
+////////////////
+select * from countries
+WHERE government_form = 'Constitutional Monarchy' and capital > 200 and life_expectancy > 75
+ORDER BY name ASC;
+////////////////
+
+
+
 
 7. ¿Qué consulta harías para obtener todas las ciudades de Argentina dentro del distrito de Buenos Aires y tener una población superior a 500,000? La consulta debe devolver el nombre del país, el nombre de la ciudad, el distrito y la población. (2)
 
