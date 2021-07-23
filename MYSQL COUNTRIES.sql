@@ -77,7 +77,7 @@ La consulta debe devolver el nombre del país, el nombre de la ciudad, el distri
 ////////////////
 
 select countries.name, cities.name, cities.district, cities.population from cities join countries ON country_id = countries.id 
-WHERE countries.name = 'argentina' and district = 'Buenos Aires' and cities.population > 500000
+WHERE countries.name = 'argentina' and district = 'Buenos Aires' and cities.population > 500000;
 
 ////////////////
 
