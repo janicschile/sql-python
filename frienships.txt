@@ -28,13 +28,23 @@ JOIN users as user2 ON friendships.friend_id = user2.id
 
 3.- Descubre quién tiene más amigos y devuelve el recuento de sus amigos.
 ////////////////////
+SELECT CONCAT(users.first_name, ' ' , users.last_name) as nombre, count(*) as total_amigos  FROM users 
+LEFT JOIN friendships ON users.id = friendships.user_id 
+LEFT JOIN users as user2 ON friendships.friend_id = user2.id
+GROUP BY nombre
+ORDER BY count(*) DESC;
+////////////////////
+
+
+
+4.- Crea un nuevo usuario y hazlos amigos de Eli Byers, Kermit The Frog y Marky Mark.
+////////////////////
 
 ////////////////////
 
 
 
 
-Crea un nuevo usuario y hazlos amigos de Eli Byers, Kermit The Frog y Marky Mark.
 Devuelve a los amigos de Eli en orden alfabético.
 Eliminar a Marky Mark de los amigos de Eli.
 Devuelve todas las amistades, mostrando solo el nombre y apellido de ambos amigos
