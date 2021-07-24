@@ -41,12 +41,14 @@ ORDER BY count(*) DESC;
 
 /* 4.- Crea un nuevo usuario y hazlos amigos de Eli Byers, Kermit The Frog y Marky Mark. */
 /* //////////////// */
+select * from users
+select * from friendships
 SET
     @idEli = (SELECT id FROM users WHERE first_name = 'eli'),  
     @idKermit = (SELECT id FROM users WHERE first_name = 'kermit'), 
     @idMarky = (SELECT id FROM users WHERE first_name = 'marky'),
     @newID = (SELECT MAX(id)+1 FROM users);
-INSERT INTO users (first_name, last_name, created_at) VALUES ('Oscar', 'Guerrero', NOW());
+INSERT INTO users (id, first_name, last_name, created_at) VALUES (@newID, 'Francisco', 'Boiser', NOW());
 INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idEli, @newID, NOW());
 INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idKermit, @newID, NOW());
 INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idMarky, @newID, NOW());
