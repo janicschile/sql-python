@@ -61,19 +61,35 @@ LEFT JOIN users AS user2 ON friendships.friend_id = user2.id;
 
 /* 5.- Devuelve a los amigos de Eli en orden alfabético. */
 /* //////////////// */
-
+SELECT user2.first_name AS friend_first_name, user2.last_name AS friend_last_name FROM users 
+LEFT JOIN friendships ON users.id = friendships.user_id 
+LEFT JOIN users AS user2 ON friendships.friend_id = user2.id
+WHERE users.first_name = 'eli'
+ORDER BY friend_first_name ASC;
 /* //////////////// */
 
 
 
 /* 6.- Eliminar a Marky Mark de los amigos de Eli. */
 /* //////////////// */
+SET
+    @idEli = (SELECT id FROM users WHERE first_name = 'eli'),
+    @idMarky = (SELECT id FROM users WHERE first_name = 'marky');
 
+DELETE FROM friendships 
+WHERE friendships.user_id = @idEli and friend_id = @idMarky;
 /* //////////////// */
+
+/* DEVOLVER AMIGO A ELI */
+INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idEli, @idMarky, NOW());
+/* AGREGAR REGISTRO ELIMINADO A ELI */
+
 
 
 
 /* 7.- Devuelve todas las amistades, mostrando solo el nombre y apellido de ambos amigos */
 /* //////////////// */
-
+SELECT CONCAT(users.first_name, ' ', users.last_name) AS principal, CONCAT(user2.first_name, ' ', user2.last_name) AS amigo FROM users 
+LEFT JOIN friendships ON users.id = friendships.user_id 
+LEFT JOIN users AS user2 ON friendships.friend_id = user2.id;
 /* //////////////// */
