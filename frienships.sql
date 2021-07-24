@@ -1,10 +1,9 @@
+
 USE amigos;
-
-DELETE FROM users WHERE users.id = 9
-
 
 /* PRINCIPAL: escribe una consulta SQL que devuelva una lista de usuarios junto con los nombres de sus amigos. */
 /* //////////////// */
+
 SELECT users.first_name AS first_name, users.last_name AS last_name, user2.first_name AS friend_first_name, user2.last_name AS friend_last_name FROM users 
 LEFT JOIN friendships ON users.id = friendships.user_id 
 LEFT JOIN users AS user2 ON friendships.friend_id = user2.id;
@@ -42,11 +41,21 @@ ORDER BY count(*) DESC;
 
 /* 4.- Crea un nuevo usuario y hazlos amigos de Eli Byers, Kermit The Frog y Marky Mark. */
 /* //////////////// */
-INSERT INTO users (first_name, last_name, created_at) VALUES ('Oscar', 'Guerrero', NOW())
-
-
-
+SET
+    @idEli = (SELECT id FROM users WHERE first_name = 'eli'),  
+    @idKermit = (SELECT id FROM users WHERE first_name = 'kermit'), 
+    @idMarky = (SELECT id FROM users WHERE first_name = 'marky'),
+    @newID = (SELECT MAX(id)+1 FROM users);
+INSERT INTO users (first_name, last_name, created_at) VALUES ('Oscar', 'Guerrero', NOW());
+INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idEli, @newID, NOW());
+INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idKermit, @newID, NOW());
+INSERT INTO friendships (user_id, friend_id, created_at) VALUES (@idMarky, @newID, NOW());
 /* //////////////// */
+
+/* CONSULTA USUARIOS Y AMIGOS */
+SELECT users.first_name AS first_name, users.last_name AS last_name, user2.first_name AS friend_first_name, user2.last_name AS friend_last_name FROM users 
+LEFT JOIN friendships ON users.id = friendships.user_id 
+LEFT JOIN users AS user2 ON friendships.friend_id = user2.id;
 
 
 
