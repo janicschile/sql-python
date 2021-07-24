@@ -1,5 +1,8 @@
 USE amigos;
 
+DELETE FROM users WHERE users.id = 9
+
+
 /* PRINCIPAL: escribe una consulta SQL que devuelva una lista de usuarios junto con los nombres de sus amigos. */
 /* //////////////// */
 SELECT users.first_name AS first_name, users.last_name AS last_name, user2.first_name AS friend_first_name, user2.last_name AS friend_last_name FROM users 
@@ -39,6 +42,9 @@ ORDER BY count(*) DESC;
 
 /* 4.- Crea un nuevo usuario y hazlos amigos de Eli Byers, Kermit The Frog y Marky Mark. */
 /* //////////////// */
+INSERT INTO users (first_name, last_name, created_at) VALUES ('Oscar', 'Guerrero', NOW())
+
+
 
 /* //////////////// */
 
