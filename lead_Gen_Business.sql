@@ -63,28 +63,45 @@ ORDER BY YEAR(sites.created_datetime), MONTH(sites.created_datetime) ASC;
 /* 5. ¿Qué consulta ejecutaría para obtener el número total de clientes 
 potenciales generados para cada uno de los sitios entre 
 el 1 de enero de 2011 y el 15 de febrero de 2011? */
+/* /////////////// */
+select
+    sites.domain_name AS dominios,
+    COUNT(leads.leads_id) as clientes_potenciales
+FROM
+    leads
+    JOIN sites ON leads.site_id = sites.site_id
+WHERE
+    leads.registered_datetime >= '2011-01-01'
+    AND leads.registered_datetime <= '2011-02-15'
+GROUP BY
+    dominios;
+/* /////////////// */
+
+
+
+/* 6. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
+y el número total de clientes potenciales que hemos generado 
+para cada uno de nuestros clientes entre 
+el 1 de enero de 2011 y el 31 de diciembre de 2011? */
+/* /////////////// */
 select * FROM sites;
+select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
 select * FROM leads;
 select * FROM clients;
 
-SELECT 
-    COUNT(leads.leads_id) AS 'cliente_id',
-    CONCAT(leads.first_name, ' ', leads.last_name) as nombre_cliente, 
-    sites.domain_name,
-    leads.registered_datetime
+select
+    CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
+    COUNT(leads.leads_id) as clientes_potenciales
 FROM
-    sites
-JOIN leads ON sites.site_id = leads.site_id
-WHERE leads.registered_datetime >= '2011-01-01' AND leads.registered_datetime <= '2011-02-15'
-GROUP BY nombre_cliente, leads.registered_datetime, sites.domain_name;
-
-
-6. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
-y el número total de clientes potenciales que hemos generado 
-para cada uno de nuestros clientes entre 
-el 1 de enero de 2011 y el 31 de diciembre de 2011?
-
-
+    leads
+    JOIN sites ON leads.site_id = sites.site_id
+    JOIN clients ON sites.client_id = clients.client_id
+WHERE
+    leads.registered_datetime >= '2011-01-01'
+    AND leads.registered_datetime <= '2011-12-31'
+GROUP BY
+    cliente;
+/* /////////////// */
 
 7. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
 y el número total de clientes potenciales que hemos generado para 
