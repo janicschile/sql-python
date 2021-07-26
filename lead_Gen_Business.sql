@@ -1,4 +1,4 @@
-SET lc_time_names = 'es_ES';
+SET lc_time_names = 'es_ES';  /* <---- Lenguaje español MYSQL */
 USE lead_Gen_Business;
 
 /* 1. ¿Qué consulta ejecutaría para obtener los ingresos totales para marzo de 2012? */
@@ -101,13 +101,9 @@ GROUP BY
     cliente;
 /* /////////////// */
 
-7. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
+/* 7. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
 y el número total de clientes potenciales que hemos generado para 
-cada cliente cada mes entre los meses 1 y 6 del año 2011?
-select * FROM sites;
-select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
-select * FROM leads;
-select * FROM clients;
+cada cliente cada mes entre los meses 1 y 6 del año 2011? */
 /* /////////////// */
 select
     CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
@@ -121,18 +117,41 @@ WHERE
     leads.registered_datetime >= '2011-01-01'
     AND leads.registered_datetime <= '2011-06-31'
 GROUP BY
-    cliente, leads.registered_datetime;
+    cliente, leads.registered_datetime
+ORDER BY
+    leads.registered_datetime;
 /* /////////////// */
 
-8. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
+/* 8. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
 y el número total de clientes potenciales que hemos generado para 
 cada uno de los sitios de nuestros clientes entre 
 el 1 de enero de 2011 y el 31 de diciembre de 2011? 
 Solicite esta consulta por ID de cliente. 
 Presente una segunda consulta que muestre todos los clientes, 
 los nombres del sitio y el número total de clientes potenciales generados 
-en cada sitio en todo momento.
+en cada sitio en todo momento. */
+select * FROM sites;
+select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
+select * FROM leads;
+select * FROM clients;
 
+select
+    CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
+    sites.domain_name as dominio,
+    COUNT(leads.leads_id) as clientes_potenciales,
+    MONTHNAME(leads.registered_datetime) as mes
+    
+FROM
+    leads
+    JOIN sites ON leads.site_id = sites.site_id
+    JOIN clients ON sites.client_id = clients.client_id
+WHERE
+    leads.registered_datetime >= '2011-01-01'
+    AND leads.registered_datetime <= '2011-12-31'
+GROUP BY
+    cliente, dominio, leads.registered_datetime, leads.leads_id
+ORDER BY
+    clientes_potenciales;
 
 9. Escriba una sola consulta que recupere los ingresos totales recaudados de cada cliente para cada mes del año. Pídalo por ID de cliente.
 
