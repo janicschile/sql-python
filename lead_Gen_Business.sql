@@ -135,24 +135,25 @@ select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
 select * FROM leads;
 select * FROM clients;
 
-select
+
+SELECT
     CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
     sites.domain_name as dominio,
-    COUNT(leads.leads_id) as clientes_potenciales,
-    MONTHNAME(leads.registered_datetime) as mes
-    
+    count(*) AS clientes_potenciales,
+    DATE_FORMAT(sites.created_datetime,'%M %d, %Y') as fecha
 FROM
     leads
-    JOIN sites ON leads.site_id = sites.site_id
-    JOIN clients ON sites.client_id = clients.client_id
+    LEFT JOIN sites ON leads.site_id = sites.site_id
+    LEFT JOIN clients ON sites.client_id = clients.client_id
 WHERE
-    leads.registered_datetime >= '2011-01-01'
-    AND leads.registered_datetime <= '2011-12-31'
+    registered_datetime >= '2011/01/01'
+    AND registered_datetime <= '2011/12/31'
 GROUP BY
-    cliente, dominio, leads.registered_datetime, leads.leads_id
-ORDER BY
-    clientes_potenciales;
+    sites.client_id,
+    sites.site_id;
 
-9. Escriba una sola consulta que recupere los ingresos totales recaudados de cada cliente para cada mes del año. Pídalo por ID de cliente.
+
+
+/* 9. Escriba una sola consulta que recupere los ingresos totales recaudados de cada cliente para cada mes del año. Pídalo por ID de cliente.
 
 10. Escriba una sola consulta que recupere todos los sitios que posee cada cliente. Agrupe los resultados para que cada fila muestre un nuevo cliente. Se volverá más claro cuando agregue un nuevo campo llamado 'sitios' que tiene todos los sitios que posee el cliente. (SUGERENCIA: use GROUP_CONCAT)
