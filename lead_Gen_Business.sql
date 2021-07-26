@@ -9,8 +9,7 @@ SELECT
 FROM
     billing
 WHERE
-    charged_datetime >= '2012-03-01 00:00:00'
-    AND charged_datetime <= '2012-03-31 23:59:59'
+    charged_datetime BETWEEN '2012-03-01 00:00:00' AND '2012-03-31 23:59:59'
 GROUP BY fecha;
   /* /////////////// */
 
@@ -74,8 +73,7 @@ FROM
     leads
     JOIN sites ON leads.site_id = sites.site_id
 WHERE
-    leads.registered_datetime >= '2011-01-01'
-    AND leads.registered_datetime <= '2011-02-15'
+    leads.registered_datetime BETWEEN '2011-01-01' AND '2011-02-15'
 GROUP BY
     dominios, fecha;
 /* /////////////// */
@@ -95,8 +93,7 @@ FROM
     JOIN sites ON leads.site_id = sites.site_id
     JOIN clients ON sites.client_id = clients.client_id
 WHERE
-    leads.registered_datetime >= '2011-01-01'
-    AND leads.registered_datetime <= '2011-12-31'
+    leads.registered_datetime BETWEEN '2011-01-01' AND '2011-12-31'
 GROUP BY
     cliente;
 /* /////////////// */
@@ -114,8 +111,7 @@ FROM
     JOIN sites ON leads.site_id = sites.site_id
     JOIN clients ON sites.client_id = clients.client_id
 WHERE
-    leads.registered_datetime >= '2011-01-01'
-    AND leads.registered_datetime <= '2011-06-31'
+    leads.registered_datetime BETWEEN '2011-01-01' AND '2011-06-31'
 GROUP BY
     cliente, leads.registered_datetime
 ORDER BY
@@ -141,9 +137,8 @@ FROM
     JOIN sites ON leads.site_id = sites.site_id
     JOIN clients ON sites.client_id = clients.client_id
 WHERE
-    registered_datetime >= '2011/01/01'
-    AND registered_datetime <= '2011/12/31'
-    AND clients.client_id = 1 
+    registered_datetime BETWEEN '2011/01/01' AND '2011/12/31'
+    AND clients.client_id = 1
 GROUP BY
     sites.client_id,
     sites.site_id;
