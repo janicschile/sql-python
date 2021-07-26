@@ -138,15 +138,33 @@ SELECT
     DATE_FORMAT(sites.created_datetime,'%M %d, %Y') as fecha
 FROM
     leads
-    LEFT JOIN sites ON leads.site_id = sites.site_id
-    LEFT JOIN clients ON sites.client_id = clients.client_id
+    JOIN sites ON leads.site_id = sites.site_id
+    JOIN clients ON sites.client_id = clients.client_id
 WHERE
     registered_datetime >= '2011/01/01'
     AND registered_datetime <= '2011/12/31'
+    AND clients.client_id = 1 
 GROUP BY
     sites.client_id,
     sites.site_id;
 /* /////////////// */
+
+/* /////////////// */
+/* 2da consulta */
+SELECT
+    CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
+    sites.domain_name AS dominio,
+    COUNT(leads.leads_id) AS clientes_potenciales
+FROM
+    clients
+    JOIN sites ON clients.client_id = sites.client_id
+    JOIN leads ON sites.site_id = leads.site_id
+GROUP BY
+    cliente,
+    dominio
+ORDER BY clientes_potenciales DESC;
+/* /////////////// */
+
 
 
 
