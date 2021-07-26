@@ -68,16 +68,15 @@ select * FROM leads;
 select * FROM clients;
 
 SELECT 
-    COUNT(leads.leads_id) AS '# of leads',
+    COUNT(leads.leads_id) AS 'cliente_id',
+    CONCAT(leads.first_name, ' ', leads.last_name) as nombre_cliente, 
     sites.domain_name,
     leads.registered_datetime
 FROM
     sites
-        JOIN
-    leads ON sites.site_id = leads.site_id
-        AND leads.registered_datetime >= '2011-01-01'
-        AND leads.registered_datetime <= '2011-02-15'
-GROUP BY sites.domain_name;
+JOIN leads ON sites.site_id = leads.site_id
+WHERE leads.registered_datetime >= '2011-01-01' AND leads.registered_datetime <= '2011-02-15'
+GROUP BY nombre_cliente, leads.registered_datetime, sites.domain_name;
 
 
 6. ¿Qué consulta ejecutaría para obtener una lista de nombres de clientes 
