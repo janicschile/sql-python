@@ -130,12 +130,7 @@ Solicite esta consulta por ID de cliente.
 Presente una segunda consulta que muestre todos los clientes, 
 los nombres del sitio y el número total de clientes potenciales generados 
 en cada sitio en todo momento. */
-select * FROM sites;
-select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
-select * FROM leads;
-select * FROM clients;
-
-
+/* /////////////// */
 SELECT
     CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
     sites.domain_name as dominio,
@@ -151,9 +146,25 @@ WHERE
 GROUP BY
     sites.client_id,
     sites.site_id;
+/* /////////////// */
 
 
 
-/* 9. Escriba una sola consulta que recupere los ingresos totales recaudados de cada cliente para cada mes del año. Pídalo por ID de cliente.
 
-10. Escriba una sola consulta que recupere todos los sitios que posee cada cliente. Agrupe los resultados para que cada fila muestre un nuevo cliente. Se volverá más claro cuando agregue un nuevo campo llamado 'sitios' que tiene todos los sitios que posee el cliente. (SUGERENCIA: use GROUP_CONCAT)
+/* 9. Escriba una sola consulta que recupere los ingresos totales recaudados 
+de cada cliente para cada mes del año. Pídalo por ID de cliente. */
+/* /////////////// */
+select * FROM sites;
+select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
+select * FROM leads;
+select * FROM clients;
+
+
+
+/* /////////////// */
+
+/* 10. Escriba una sola consulta que recupere todos los sitios que 
+posee cada cliente. Agrupe los resultados para que cada fila muestre 
+un nuevo cliente. Se volverá más claro cuando agregue un nuevo 
+campo llamado 'sitios' que tiene todos los sitios que posee el cliente. 
+(SUGERENCIA: use GROUP_CONCAT) */
