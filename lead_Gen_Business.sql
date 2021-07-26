@@ -172,17 +172,35 @@ ORDER BY clientes_potenciales DESC;
 /* 9. Escriba una sola consulta que recupere los ingresos totales recaudados 
 de cada cliente para cada mes del año. Pídalo por ID de cliente. */
 /* /////////////// */
-select * FROM sites;
-select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
-select * FROM leads;
-select * FROM clients;
-
-
-
+SELECT
+    CONCAT(clients.first_name, ' ', clients.last_name) AS cliente,
+    SUM(amount) as total_recaudado,
+    MONTHNAME(billing.charged_datetime) as mes,
+    YEAR(billing.charged_datetime) as año
+FROM
+    clients
+    JOIN billing ON clients.client_id = billing.client_id
+WHERE
+    clients.client_id = 1 
+GROUP BY
+    clients.client_id,
+    billing.charged_datetime
+ORDER BY
+    billing.charged_datetime;
 /* /////////////// */
+
+
 
 /* 10. Escriba una sola consulta que recupere todos los sitios que 
 posee cada cliente. Agrupe los resultados para que cada fila muestre 
 un nuevo cliente. Se volverá más claro cuando agregue un nuevo 
 campo llamado 'sitios' que tiene todos los sitios que posee el cliente. 
 (SUGERENCIA: use GROUP_CONCAT) */
+/* /////////////// */
+
+select * FROM sites;
+select * FROM leads JOIN sites ON leads.site_id = sites.site_id;
+select * FROM leads;
+select * FROM clients;
+select * FROM billing;
+
